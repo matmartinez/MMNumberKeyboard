@@ -10,22 +10,33 @@
 		09019C901C1A1C33004D0A5D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 09019C8F1C1A1C33004D0A5D /* main.m */; };
 		09019C931C1A1C33004D0A5D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 09019C921C1A1C33004D0A5D /* AppDelegate.m */; };
 		09019C961C1A1C33004D0A5D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09019C951C1A1C33004D0A5D /* ViewController.m */; };
-		09019C991C1A1C33004D0A5D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09019C971C1A1C33004D0A5D /* Main.storyboard */; };
-		09019C9B1C1A1C33004D0A5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09019C9A1C1A1C33004D0A5D /* Assets.xcassets */; };
 		09019C9E1C1A1C33004D0A5D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09019C9C1C1A1C33004D0A5D /* LaunchScreen.storyboard */; };
+		09019CC01C1A281D004D0A5D /* MMNumberKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 09019CBF1C1A281D004D0A5D /* MMNumberKeyboard.m */; };
+		09019CC81C1A2831004D0A5D /* MMNumberKeyboardDeleteKey.png in Resources */ = {isa = PBXBuildFile; fileRef = 09019CC21C1A2831004D0A5D /* MMNumberKeyboardDeleteKey.png */; };
+		09019CC91C1A2831004D0A5D /* MMNumberKeyboardDeleteKey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09019CC31C1A2831004D0A5D /* MMNumberKeyboardDeleteKey@2x.png */; };
+		09019CCA1C1A2831004D0A5D /* MMNumberKeyboardDeleteKey@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09019CC41C1A2831004D0A5D /* MMNumberKeyboardDeleteKey@3x.png */; };
+		09019CCB1C1A2831004D0A5D /* MMNumberKeyboardDismissKey.png in Resources */ = {isa = PBXBuildFile; fileRef = 09019CC51C1A2831004D0A5D /* MMNumberKeyboardDismissKey.png */; };
+		09019CCC1C1A2831004D0A5D /* MMNumberKeyboardDismissKey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09019CC61C1A2831004D0A5D /* MMNumberKeyboardDismissKey@2x.png */; };
+		09019CCD1C1A2831004D0A5D /* MMNumberKeyboardDismissKey@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09019CC71C1A2831004D0A5D /* MMNumberKeyboardDismissKey@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		09019C8B1C1A1C33004D0A5D /* MMNumberKeyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MMNumberKeyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		09019C8F1C1A1C33004D0A5D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		09019C8F1C1A1C33004D0A5D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../Demo/main.m; sourceTree = "<group>"; };
 		09019C911C1A1C33004D0A5D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		09019C921C1A1C33004D0A5D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		09019C941C1A1C33004D0A5D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		09019C951C1A1C33004D0A5D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		09019C981C1A1C33004D0A5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		09019C9A1C1A1C33004D0A5D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		09019C9D1C1A1C33004D0A5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		09019C9F1C1A1C33004D0A5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		09019CBE1C1A281D004D0A5D /* MMNumberKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMNumberKeyboard.h; sourceTree = "<group>"; };
+		09019CBF1C1A281D004D0A5D /* MMNumberKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMNumberKeyboard.m; sourceTree = "<group>"; };
+		09019CC21C1A2831004D0A5D /* MMNumberKeyboardDeleteKey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MMNumberKeyboardDeleteKey.png; sourceTree = "<group>"; };
+		09019CC31C1A2831004D0A5D /* MMNumberKeyboardDeleteKey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MMNumberKeyboardDeleteKey@2x.png"; sourceTree = "<group>"; };
+		09019CC41C1A2831004D0A5D /* MMNumberKeyboardDeleteKey@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MMNumberKeyboardDeleteKey@3x.png"; sourceTree = "<group>"; };
+		09019CC51C1A2831004D0A5D /* MMNumberKeyboardDismissKey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MMNumberKeyboardDismissKey.png; sourceTree = "<group>"; };
+		09019CC61C1A2831004D0A5D /* MMNumberKeyboardDismissKey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MMNumberKeyboardDismissKey@2x.png"; sourceTree = "<group>"; };
+		09019CC71C1A2831004D0A5D /* MMNumberKeyboardDismissKey@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MMNumberKeyboardDismissKey@3x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,7 +53,9 @@
 		09019C821C1A1C33004D0A5D = {
 			isa = PBXGroup;
 			children = (
-				09019C8D1C1A1C33004D0A5D /* MMNumberKeyboard */,
+				09019CBD1C1A2812004D0A5D /* Classes */,
+				09019CC11C1A2827004D0A5D /* Images */,
+				09019C8D1C1A1C33004D0A5D /* Demo */,
 				09019C8C1C1A1C33004D0A5D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -55,29 +68,49 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		09019C8D1C1A1C33004D0A5D /* MMNumberKeyboard */ = {
+		09019C8D1C1A1C33004D0A5D /* Demo */ = {
 			isa = PBXGroup;
 			children = (
 				09019C911C1A1C33004D0A5D /* AppDelegate.h */,
 				09019C921C1A1C33004D0A5D /* AppDelegate.m */,
 				09019C941C1A1C33004D0A5D /* ViewController.h */,
 				09019C951C1A1C33004D0A5D /* ViewController.m */,
-				09019C971C1A1C33004D0A5D /* Main.storyboard */,
-				09019C9A1C1A1C33004D0A5D /* Assets.xcassets */,
 				09019C9C1C1A1C33004D0A5D /* LaunchScreen.storyboard */,
-				09019C9F1C1A1C33004D0A5D /* Info.plist */,
 				09019C8E1C1A1C33004D0A5D /* Supporting Files */,
 			);
-			path = MMNumberKeyboard;
+			path = Demo;
 			sourceTree = "<group>";
 		};
 		09019C8E1C1A1C33004D0A5D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				09019C9F1C1A1C33004D0A5D /* Info.plist */,
 				09019C8F1C1A1C33004D0A5D /* main.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
+		};
+		09019CBD1C1A2812004D0A5D /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				09019CBE1C1A281D004D0A5D /* MMNumberKeyboard.h */,
+				09019CBF1C1A281D004D0A5D /* MMNumberKeyboard.m */,
+			);
+			path = Classes;
+			sourceTree = SOURCE_ROOT;
+		};
+		09019CC11C1A2827004D0A5D /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				09019CC21C1A2831004D0A5D /* MMNumberKeyboardDeleteKey.png */,
+				09019CC31C1A2831004D0A5D /* MMNumberKeyboardDeleteKey@2x.png */,
+				09019CC41C1A2831004D0A5D /* MMNumberKeyboardDeleteKey@3x.png */,
+				09019CC51C1A2831004D0A5D /* MMNumberKeyboardDismissKey.png */,
+				09019CC61C1A2831004D0A5D /* MMNumberKeyboardDismissKey@2x.png */,
+				09019CC71C1A2831004D0A5D /* MMNumberKeyboardDismissKey@3x.png */,
+			);
+			path = Images;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -136,9 +169,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09019CCA1C1A2831004D0A5D /* MMNumberKeyboardDeleteKey@3x.png in Resources */,
+				09019CC81C1A2831004D0A5D /* MMNumberKeyboardDeleteKey.png in Resources */,
+				09019CCB1C1A2831004D0A5D /* MMNumberKeyboardDismissKey.png in Resources */,
+				09019CCC1C1A2831004D0A5D /* MMNumberKeyboardDismissKey@2x.png in Resources */,
+				09019CC91C1A2831004D0A5D /* MMNumberKeyboardDeleteKey@2x.png in Resources */,
+				09019CCD1C1A2831004D0A5D /* MMNumberKeyboardDismissKey@3x.png in Resources */,
 				09019C9E1C1A1C33004D0A5D /* LaunchScreen.storyboard in Resources */,
-				09019C9B1C1A1C33004D0A5D /* Assets.xcassets in Resources */,
-				09019C991C1A1C33004D0A5D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,6 +187,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09019C961C1A1C33004D0A5D /* ViewController.m in Sources */,
+				09019CC01C1A281D004D0A5D /* MMNumberKeyboard.m in Sources */,
 				09019C931C1A1C33004D0A5D /* AppDelegate.m in Sources */,
 				09019C901C1A1C33004D0A5D /* main.m in Sources */,
 			);
@@ -158,21 +196,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		09019C971C1A1C33004D0A5D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				09019C981C1A1C33004D0A5D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		09019C9C1C1A1C33004D0A5D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				09019C9D1C1A1C33004D0A5D /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
+			path = Demo;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXVariantGroup section */
 
@@ -263,7 +294,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = MMNumberKeyboard/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.MatMartinez.MMNumberKeyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -274,7 +305,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = MMNumberKeyboard/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.MatMartinez.MMNumberKeyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
