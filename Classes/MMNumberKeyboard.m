@@ -107,8 +107,11 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
         [buttonDictionary setObject:button forKey:@(key)];
     }
     
+    UIImage *backspaceImage = [self.class _keyboardImageNamed:@"MMNumberKeyboardDeleteKey.png"];
+    UIImage *dismissImage = [self.class _keyboardImageNamed:@"MMNumberKeyboardDismissKey.png"];
+    
     UIButton *backspaceButton = [_MMNumberKeyboardButton keyboardButtonWithType:MMNumberKeyboardButtonTypeGray];
-    [backspaceButton setImage:[[UIImage imageNamed:@"MMNumberKeyboardDeleteKey.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+    [backspaceButton setImage:[backspaceImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
     
     [(_MMNumberKeyboardButton *)backspaceButton addTarget:self action:@selector(_backspaceRepeat:) forContinuousPressWithTimeInterval:0.15f];
     
@@ -145,7 +148,7 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
     self.buttonDictionary = buttonDictionary;
     
     // Add default action.
-    [self configureSpecialKeyWithImage:[UIImage imageNamed:@"MMNumberKeyboardDismissKey.png"] target:self action:@selector(_dismissKeyboard:)];
+    [self configureSpecialKeyWithImage:dismissImage target:self action:@selector(_dismissKeyboard:)];
     
     // Size to fit.
     [self sizeToFit];
@@ -541,6 +544,26 @@ NS_INLINE CGRect MMButtonRectMake(CGRect rect, CGRect contentRect, UIUserInterfa
 - (BOOL)enableInputClicksWhenVisible
 {
     return YES;
+}
+
+#pragma mark - Accessing keyboard images.
+
++ (UIImage *)_keyboardImageNamed:(NSString *)name
+{
+    NSString *resource = [name stringByDeletingPathExtension];
+    NSString *extension = [name pathExtension];
+    
+    if (resource) {
+        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+        if (bundle) {
+            NSString *resourcePath = [bundle pathForResource:resource ofType:extension];
+            
+            return [UIImage imageWithContentsOfFile:resourcePath];
+        } else {
+            return [UIImage imageNamed:name];
+        }
+    }
+    return nil;
 }
 
 @end
