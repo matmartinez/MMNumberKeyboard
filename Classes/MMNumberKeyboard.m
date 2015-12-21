@@ -28,6 +28,7 @@ typedef NS_ENUM(NSUInteger, MMNumberKeyboardButtonType) {
 
 @property (strong, nonatomic) NSDictionary *buttonDictionary;
 @property (strong, nonatomic) NSArray *separatorViews;
+@property (strong, nonatomic) NSLocale *locale;
 
 @property (copy, nonatomic) dispatch_block_t specialKeyHandler;
 
@@ -81,6 +82,16 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
     return self;
 }
 
+- (instancetype)initWithFrame:(CGRect)frame inputViewStyle:(UIInputViewStyle)inputViewStyle locale:(NSLocale *)locale
+{
+    self = [super initWithFrame:frame inputViewStyle:inputViewStyle];
+    if (self) {
+        self.locale = locale;
+        [self _commonInit];
+    }
+    return self;
+}
+
 - (void)_commonInit
 {
     NSMutableDictionary *buttonDictionary = [NSMutableDictionary dictionary];
@@ -128,7 +139,8 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
     [buttonDictionary setObject:doneButton forKey:@(MMNumberKeyboardButtonDone)];
     
     UIButton *decimalPointButton = [_MMNumberKeyboardButton keyboardButtonWithType:MMNumberKeyboardButtonTypeWhite];
-    NSLocale *locale = [NSLocale currentLocale];
+    
+    NSLocale *locale = self.locale ?: [NSLocale currentLocale];
     NSString *decimalSeparator = [locale objectForKey:NSLocaleDecimalSeparator];
     [decimalPointButton setTitle:decimalSeparator ?: @"." forState:UIControlStateNormal];
     
