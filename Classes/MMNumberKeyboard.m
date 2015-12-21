@@ -691,15 +691,21 @@ NS_INLINE CGRect MMButtonRectMake(CGRect rect, CGRect contentRect, UIUserInterfa
     const NSTimeInterval continuousPressTimeInterval = self.continuousPressTimeInterval;
     
     if (begins && continuousPressTimeInterval > 0) {
-        [self performSelector:@selector(_beginContinuousPress) withObject:nil afterDelay:continuousPressTimeInterval * 2.0f];
+        [self _beginContinuousPressDelayed];
     }
     
     return begins;
 }
 
+- (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
+{
+    [super endTrackingWithTouch:touch withEvent:event];
+    [self _cancelContinousPressIfNeeded];
+}
+
 - (void)dealloc
 {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(_beginContinuousPress) object:nil];
+    [self _cancelContinousPressIfNeeded];
 }
 
 - (void)_beginContinuousPress
@@ -716,12 +722,28 @@ NS_INLINE CGRect MMButtonRectMake(CGRect rect, CGRect contentRect, UIUserInterfa
 - (void)_handleContinuousPressTimer:(NSTimer *)timer
 {
     if (!self.isTracking) {
-        [timer invalidate];
-        [self setContinuousPressTimer:nil];
+        [self _cancelContinousPressIfNeeded];
         return;
     }
     
     [self sendActionsForControlEvents:UIControlEventValueChanged];
+}
+
+- (void)_beginContinuousPressDelayed
+{
+    [self performSelector:@selector(_beginContinuousPress) withObject:nil afterDelay:self.continuousPressTimeInterval * 2.0f];
+}
+
+- (void)_cancelContinousPressIfNeeded
+{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(_beginContinuousPress) object:nil];
+    
+    NSTimer *timer = self.continuousPressTimer;
+    if (timer) {
+        [timer invalidate];
+        
+        self.continuousPressTimer = nil;
+    }
 }
 
 @end
