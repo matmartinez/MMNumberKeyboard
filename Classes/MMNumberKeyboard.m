@@ -486,7 +486,7 @@ NS_INLINE CGRect MMButtonRectMake(CGRect rect, CGRect contentRect, UIUserInterfa
         
         const NSUInteger totalColumns = 4;
         const NSUInteger totalRows = numbersPerLine + 1;
-        const NSUInteger numberOfSeparators = totalColumns * totalRows - 1;
+        const NSUInteger numberOfSeparators = totalColumns + totalRows - 1;
         
         if (separatorViews.count != numberOfSeparators) {
             [separatorViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
