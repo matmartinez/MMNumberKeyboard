@@ -73,6 +73,15 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
 
 #define UIKitLocalizedString(key) [[NSBundle bundleWithIdentifier:@"com.apple.UIKit"] localizedStringForKey:key value:@"" table:nil]
 
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame inputViewStyle:UIInputViewStyleKeyboard];
+    if (self) {
+        [self _commonInit];
+    }
+    return self;
+}
+
 - (instancetype)initWithFrame:(CGRect)frame inputViewStyle:(UIInputViewStyle)inputViewStyle
 {
     self = [super initWithFrame:frame inputViewStyle:inputViewStyle];
