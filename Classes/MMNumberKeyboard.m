@@ -27,7 +27,7 @@ typedef NS_ENUM(NSUInteger, MMNumberKeyboardButtonType) {
 @interface MMNumberKeyboard () <UIInputViewAudioFeedback>
 
 @property (strong, nonatomic) NSDictionary *buttonDictionary;
-@property (strong, nonatomic) NSArray *separatorViews;
+@property (strong, nonatomic) NSMutableArray *separatorViews;
 @property (strong, nonatomic) NSLocale *locale;
 
 @property (copy, nonatomic) dispatch_block_t specialKeyHandler;
@@ -167,6 +167,9 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
     [self addGestureRecognizer:highlightGestureRecognizer];
     
     self.buttonDictionary = buttonDictionary;
+    
+    // Initialize an array for the separators.
+    self.separatorViews = [NSMutableArray array];
     
     // Add default action.
     [self configureSpecialKeyWithImage:dismissImage target:self action:@selector(_dismissKeyboard:)];
@@ -491,26 +494,29 @@ NS_INLINE CGRect MMButtonRectMake(CGRect rect, CGRect contentRect, UIUserInterfa
     
     // Layout separators if phone.
     if (interfaceIdiom != UIUserInterfaceIdiomPad) {
-        NSArray *separatorViews = self.separatorViews;
+        NSMutableArray *separatorViews = self.separatorViews;
         
         const NSUInteger totalColumns = 4;
         const NSUInteger totalRows = numbersPerLine + 1;
         const NSUInteger numberOfSeparators = totalColumns + totalRows - 1;
         
         if (separatorViews.count != numberOfSeparators) {
-            [separatorViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-            
-            NSMutableArray *neueSeparatorViews = [NSMutableArray arrayWithCapacity:numberOfSeparators];
-            
-            for (NSInteger idx = 0; idx < numberOfSeparators; idx++) {
-                UIView *separator = [[UIView alloc] initWithFrame:CGRectZero];
-                separator.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.1f];
-                
-                [self addSubview:separator];
-                [neueSeparatorViews addObject:separator];
+            const NSUInteger delta = (numberOfSeparators - separatorViews.count);
+            const BOOL removes = (separatorViews.count > numberOfSeparators);
+            if (removes) {
+                NSIndexSet *indexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, delta)];
+                [[separatorViews objectsAtIndexes:indexes] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+                [separatorViews removeObjectsAtIndexes:indexes];
+            } else {
+                NSUInteger separatorsToInsert = delta;
+                while (separatorsToInsert--) {
+                    UIView *separator = [[UIView alloc] initWithFrame:CGRectZero];
+                    separator.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.1f];
+                    
+                    [self addSubview:separator];
+                    [separatorViews addObject:separator];
+                }
             }
-            
-            self.separatorViews = neueSeparatorViews;
         }
         
         const CGFloat separatorDimension = 1.0f / (self.window.screen.scale ?: 1.0f);
