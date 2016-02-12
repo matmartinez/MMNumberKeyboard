@@ -397,10 +397,6 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
     }
 }
 
-- (UIButton *)doneButton {
-    return self.buttonDictionary[@(MMNumberKeyboardButtonDone)];
-}
-
 - (void)setAllowsDecimalPoint:(BOOL)allowsDecimalPoint
 {
     if (allowsDecimalPoint != _allowsDecimalPoint) {
