@@ -82,6 +82,22 @@
  */
 - (void)configureSpecialKeyWithImage:(UIImage *)image target:(id)target action:(SEL)action;
 
+
+/**
+ *  Customize done button title
+ */
+- (void)setDoneButtonTitle:(NSString *)title;
+
+/**
+ *  Customize done button title color
+ */
+- (void)setDoneButtonTitleColor:(UIColor *)titleColor highlightedColor:(UIColor *)highlightedColor;
+
+/**
+ *  Customize done button colors
+ */
+- (void)setDoneButtonBackgroundColor:(UIColor *)backgroundColor highlightedColor:(UIColor *)highlightedColor;
+
 /**
  *  If @c YES, the decimal separator key will be displayed.
  *
