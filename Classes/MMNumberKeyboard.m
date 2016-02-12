@@ -36,6 +36,12 @@ typedef NS_ENUM(NSUInteger, MMNumberKeyboardButtonType) {
 
 @interface _MMNumberKeyboardButton : UIButton
 
+@property (strong, nonatomic) UIColor *fillColor;
+@property (strong, nonatomic) UIColor *highlightedFillColor;
+
+@property (strong, nonatomic) UIColor *controlColor;
+@property (strong, nonatomic) UIColor *highlightedControlColor;
+
 + (_MMNumberKeyboardButton *)keyboardButtonWithType:(MMNumberKeyboardButtonType)buttonType;
 
 // Notes the continuous press time interval, then adds the target/action to the UIControlEventValueChanged event.
@@ -363,6 +369,34 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
     }];
 }
 
+- (void)setDoneButtonTitle:(NSString *)title {
+    UIButton *doneButton = [self.buttonDictionary objectForKey:@(MMNumberKeyboardButtonDone)];
+    [doneButton setTitle:UIKitLocalizedString(title) forState:UIControlStateNormal];
+}
+
+- (void)setDoneButtonTitleColor:(UIColor *)titleColor highlightedColor:(UIColor *)highlightedColor {
+    _MMNumberKeyboardButton *button = [self.buttonDictionary objectForKey:@(MMNumberKeyboardButtonDone)];
+    if (titleColor) {
+        [button setTitleColor:titleColor forState:UIControlStateNormal];
+        button.controlColor = titleColor;
+    }
+    if (highlightedColor) {
+        [button setTitleColor:highlightedColor forState:UIControlStateSelected];
+        [button setTitleColor:highlightedColor forState:UIControlStateHighlighted];
+        button.highlightedFillColor = highlightedColor;
+    }
+}
+
+- (void)setDoneButtonBackgroundColor:(UIColor *)backgroundColor highlightedColor:(UIColor *)highlightedColor {
+    _MMNumberKeyboardButton *button = [self.buttonDictionary objectForKey:@(MMNumberKeyboardButtonDone)];
+    if (backgroundColor) {
+        button.fillColor = backgroundColor;
+    }
+    if (highlightedColor) {
+        button.highlightedFillColor = highlightedColor;
+    }
+}
+
 - (void)setAllowsDecimalPoint:(BOOL)allowsDecimalPoint
 {
     if (allowsDecimalPoint != _allowsDecimalPoint) {
@@ -599,12 +633,6 @@ NS_INLINE CGRect MMButtonRectMake(CGRect rect, CGRect contentRect, UIUserInterfa
 
 @property (strong, nonatomic) NSTimer *continuousPressTimer;
 @property (assign, nonatomic) NSTimeInterval continuousPressTimeInterval;
-
-@property (strong, nonatomic) UIColor *fillColor;
-@property (strong, nonatomic) UIColor *highlightedFillColor;
-
-@property (strong, nonatomic) UIColor *controlColor;
-@property (strong, nonatomic) UIColor *highlightedControlColor;
 
 @end
 
