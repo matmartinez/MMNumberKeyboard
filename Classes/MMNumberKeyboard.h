@@ -38,6 +38,26 @@
 @end
 
 /**
+ *  Specifies the style of a keyboard button.
+ */
+typedef NS_ENUM(NSUInteger, MMNumberKeyboardButtonStyle) {
+    /**
+     *  A white style button, such as those for the number keys.
+     */
+    MMNumberKeyboardButtonStyleWhite,
+    
+    /**
+     *  A gray style button, such as the backspace key.
+     */
+    MMNumberKeyboardButtonStyleGray,
+    
+    /**
+     *  A done style button, for example, a button that completes some task and returns to the previous view.
+     */
+    MMNumberKeyboardButtonStyleDone
+};
+
+/**
  *  A simple keyboard to use with numbers and, optionally, a decimal point.
  */
 @interface MMNumberKeyboard : UIInputView
@@ -88,5 +108,19 @@
  *  @note The default value of this property is @c NO.
  */
 @property (assign, nonatomic) BOOL allowsDecimalPoint;
+
+/**
+ *  The visible title of the Return key.
+ *
+ *  @note The default visible title of the Return key is “Done”.
+ */
+@property (copy, nonatomic) NSString *returnKeyTitle;
+
+/**
+ *  The button style of the Return key.
+ *
+ *  @note The default value of this property is @c MMNumberKeyboardButtonStyleDone.
+ */
+@property (assign, nonatomic) MMNumberKeyboardButtonStyle returnKeyButtonStyle;
 
 @end
