@@ -35,6 +35,15 @@
  */
 - (BOOL)numberKeyboardShouldReturn:(MMNumberKeyboard *)numberKeyboard;
 
+/**
+ *  Asks the delegate if the keyboard should remove the character just before the cursor.
+ *
+ *  @param numberKeyboard The keyboard whose return button was pressed.
+ *
+ *  @return Returns	@c YES if the keyboard should implement its default behavior for the delete backward button; otherwise, @c NO.
+ */
+- (BOOL)numberKeyboardShouldDeleteBackward:(MMNumberKeyboard *)numberKeyboard;
+
 @end
 
 /**

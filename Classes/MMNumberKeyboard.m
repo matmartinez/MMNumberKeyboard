@@ -253,7 +253,15 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
     
     // Handle backspace.
     else if (keyboardButton == MMNumberKeyboardButtonBackspace) {
-        [keyInput deleteBackward];
+        BOOL shouldDeleteBackward = YES;
+		
+        if ([delegate respondsToSelector:@selector(numberKeyboardShouldDeleteBackward:)]) {
+            shouldDeleteBackward = [delegate numberKeyboardShouldDeleteBackward:self];
+        }
+		
+        if (shouldDeleteBackward) {
+            [keyInput deleteBackward];
+        }
     }
     
     // Handle done.
