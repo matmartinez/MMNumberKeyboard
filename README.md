@@ -18,6 +18,20 @@ Second, install `MMNumberKeyboard` into your project:
 pod install
 ```
 
+### From Carthage
+[Carthage](https://github.com/Carthage/Carthage) is a dependency manager for Objective-C and Swift. Add the following line to your `Cartfile`:
+
+```
+github "matmartinez/MMNumberKeyboard"
+```
+
+The run `carthage update`.
+
+Follow the current instructions in [Carthage's README][carthage-installation]
+for up to date installation instructions.
+
+[carthage-installation]: https://github.com/Carthage/Carthage#adding-frameworks-to-an-application
+
 ## Usage
 
 There is a sample Xcode project available. Just build & run. And profit.
