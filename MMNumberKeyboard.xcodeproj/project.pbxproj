@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BEEDEF1A1D0A57F7007D16E2 /* MMNumberKeyboard.h in Headers */ = {isa = PBXBuildFile; fileRef = BEEDEF181D0A57F7007D16E2 /* MMNumberKeyboard.h */; };
+		BEEDEF1A1D0A57F7007D16E2 /* MMNumberKeyboard.h in Headers */ = {isa = PBXBuildFile; fileRef = BEEDEF181D0A57F7007D16E2 /* MMNumberKeyboard.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BEEDEF1B1D0A57F7007D16E2 /* MMNumberKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = BEEDEF191D0A57F7007D16E2 /* MMNumberKeyboard.m */; };
 /* End PBXBuildFile section */
 
