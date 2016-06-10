@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+//! Project version number for MMNumberKeyboard.
+FOUNDATION_EXPORT double MMNumberKeyboardVersionNumber;
+
+//! Project version string for MMNumberKeyboard.
+FOUNDATION_EXPORT const unsigned char MMNumberKeyboardVersionString[];
+
 @class MMNumberKeyboard;
 
 /**
