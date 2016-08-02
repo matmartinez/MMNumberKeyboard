@@ -736,6 +736,8 @@ NS_INLINE CGRect MMButtonRectMake(CGRect rect, CGRect contentRect, UIUserInterfa
         buttonLayer.shadowOpacity = 1.0f;
         buttonLayer.shadowRadius = 0.0f;
     }
+
+    [self _updateButtonAppearance];
 }
 
 - (void)willMoveToWindow:(UIWindow *)newWindow
