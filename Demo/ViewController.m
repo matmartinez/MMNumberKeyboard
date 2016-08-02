@@ -12,6 +12,7 @@
 @interface ViewController () <MMNumberKeyboardDelegate>
 
 @property (strong, nonatomic) UITextField *textField;
+@property (strong, nonatomic) MMNumberKeyboard *keyboard;
 
 @end
 
@@ -27,6 +28,8 @@
     MMNumberKeyboard *keyboard = [[MMNumberKeyboard alloc] initWithFrame:CGRectZero];
     keyboard.allowsDecimalPoint = YES;
     keyboard.delegate = self;
+
+    self.keyboard = keyboard;
     
     // Configure an example UITextField.
     UITextField *textField = [[UITextField alloc] initWithFrame:CGRectZero];
@@ -39,6 +42,23 @@
     self.textField = textField;
     
     [self.view addSubview:textField];
+
+    [textField addTarget:self action:@selector(textfieldChanged:) forControlEvents:UIControlEventEditingChanged];
+
+    [self updateReturnKeyStyleAccordingToTextFieldLength];
+}
+
+- (void)textfieldChanged:(UITextField *)field {
+    [self updateReturnKeyStyleAccordingToTextFieldLength];
+}
+
+- (void)updateReturnKeyStyleAccordingToTextFieldLength {
+    if (self.textField.text.length == 0) {
+        self.keyboard.returnKeyButtonStyle = MMNumberKeyboardButtonStyleGray;
+    }
+    else {
+        self.keyboard.returnKeyButtonStyle = MMNumberKeyboardButtonStyleDone;
+    }
 }
 
 #pragma mark - MMNumberKeyboardDelegate.
