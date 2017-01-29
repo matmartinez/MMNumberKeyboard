@@ -333,7 +333,7 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
 
 - (void)_dismissKeyboard:(id)sender
 {
-    UIResponder *firstResponder = self.keyInput;
+    UIResponder *firstResponder = (UIResponder*) self.keyInput;
     if (firstResponder) {
         [firstResponder resignFirstResponder];
     }
