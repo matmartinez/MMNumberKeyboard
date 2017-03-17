@@ -632,17 +632,18 @@ NS_INLINE CGRect MMButtonRectMake(CGRect rect, CGRect contentRect, UIUserInterfa
     NSString *resource = [name stringByDeletingPathExtension];
     NSString *extension = [name pathExtension];
     
-    if (resource) {
-        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-        if (bundle) {
-            NSString *resourcePath = [bundle pathForResource:resource ofType:extension];
-            
-            return [UIImage imageWithContentsOfFile:resourcePath];
-        } else {
-            return [UIImage imageNamed:name];
-        }
+    if (!resource.length) {
+        return nil;
     }
-    return nil;
+
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSString *resourcePath = [bundle pathForResource:resource ofType:extension];
+
+    if (resourcePath.length) {
+        return [UIImage imageWithContentsOfFile:resourcePath];
+    }
+
+    return [UIImage imageNamed:resource];
 }
 
 @end
