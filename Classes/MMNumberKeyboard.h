@@ -125,6 +125,15 @@ typedef NS_ENUM(NSUInteger, MMNumberKeyboardButtonStyle) {
 @property (assign, nonatomic) BOOL allowsDecimalPoint;
 
 /**
+ *  Set the character that will be used as decimal separator.
+ *  If @c nil, the default value is set.
+ *
+ *  @note The default value of this property is the default decimal separator of the current locale.
+ *  @param decimalCharacter The character that will be used as decimal separator.
+ */
+- (void) setDecimalCharacter:(NSString *)decimalCharacter;
+
+/**
  *  The visible title of the Return key.
  *
  *  @note The default visible title of the Return key is “Done”.

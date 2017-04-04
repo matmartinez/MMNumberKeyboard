@@ -28,6 +28,9 @@
     keyboard.allowsDecimalPoint = YES;
     keyboard.delegate = self;
     
+    // Uncomment this line to override the decimal separator character
+    // keyboard.decimalCharacter = @"🐼";
+    
     // Configure an example UITextField.
     UITextField *textField = [[UITextField alloc] initWithFrame:CGRectZero];
     textField.inputView = keyboard;
