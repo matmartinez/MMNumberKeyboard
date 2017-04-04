@@ -383,6 +383,38 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
         [self setNeedsLayout];
     }
 }
+    
+- (void)setDecimalPointKeyTitle:(NSString *)title
+{
+    if (![title isEqualToString:self.decimalPointKeyTitle]) {
+        UIButton *button = self.buttonDictionary[@(MMNumberKeyboardButtonDecimalPoint)];
+        if (button) {
+            NSString *decimalPointKeyTitle = (title != nil && title.length > 0) ? title : [self defaultDecimalPointKeyTitle];
+            [button setTitle:decimalPointKeyTitle forState:UIControlStateNormal];
+        }
+    }
+}
+
+- (NSString *)decimalPointKeyTitle
+{
+    UIButton *button = self.buttonDictionary[@(MMNumberKeyboardButtonDecimalPoint)];
+    if (button) {
+        NSString *title = [button titleForState:UIControlStateNormal];
+        if (title != nil && title.length > 0) {
+            return title;
+        }
+    }
+    return [self defaultDecimalPointKeyTitle];
+}
+
+- (NSString *)defaultDecimalPointKeyTitle
+{
+    NSLocale *locale = self.locale ?: [NSLocale currentLocale];
+    NSString *decimalSeparator = [locale objectForKey:NSLocaleDecimalSeparator];
+    return decimalSeparator ?: @".";
+}
+    
+    
 
 - (void)setReturnKeyTitle:(NSString *)title
 {

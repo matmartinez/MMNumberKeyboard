@@ -124,6 +124,22 @@ typedef NS_ENUM(NSUInteger, MMNumberKeyboardButtonStyle) {
  */
 @property (assign, nonatomic) BOOL allowsDecimalPoint;
 
+    
+/**
+ *  The visible title of the Decimal Point key.
+ *
+ *  @note The default visible title of the Decimal Point key is “.”.
+ */
+@property (copy, nonatomic) NSString *decimalPointKeyTitle;
+    
+    
+///**
+// *  The button style of the Decimal Point key.
+// *
+// *  @note The default value of this property is @c MMNumberKeyboardButtonStyleDone.
+// */
+//@property (assign, nonatomic) MMNumberKeyboardButtonStyle returnKeyButtonStyle;
+    
 /**
  *  The visible title of the Return key.
  *
