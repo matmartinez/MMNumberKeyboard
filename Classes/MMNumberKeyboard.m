@@ -319,7 +319,7 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
     }
     
     keyInput = [UIResponder MM_currentFirstResponder];
-    if (![keyInput conformsToProtocol:@protocol(UITextInput)]) {
+    if (![keyInput conformsToProtocol:@protocol(UIKeyInput)]) {
         NSLog(@"Warning: First responder %@ does not conform to the UIKeyInput protocol.", keyInput);
         return nil;
     }
