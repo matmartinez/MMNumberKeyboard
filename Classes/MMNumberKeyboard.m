@@ -169,7 +169,7 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
     self.separatorViews = [NSMutableArray array];
     
     // Add default action.
-    [self configureSpecialKeyWithImage:dismissImage target:self action:@selector(_dismissKeyboard:)];
+    [self configureSpecialKeyWithImage:dismissImage buttonStyle:MMNumberKeyboardButtonStyleGray target:self action:@selector(_dismissKeyboard:)];
     
     // Add default return key title.
     [self setReturnKeyTitle:[self defaultReturnKeyTitle]];
@@ -342,24 +342,52 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
 
 #pragma mark - Public.
 
-- (void)configureSpecialKeyWithImage:(UIImage *)image actionHandler:(dispatch_block_t)handler
+- (void)configureSpecialKeyWithTitle:(NSString *)title buttonStyle:(MMNumberKeyboardButtonStyle)style actionHandler:(dispatch_block_t)handler
 {
-    if (image) {
-        self.specialKeyHandler = handler;
-    } else {
-        self.specialKeyHandler = NULL;
-    }
-    
-    UIButton *button = self.buttonDictionary[@(MMNumberKeyboardButtonSpecial)];
-    [button setImage:image forState:UIControlStateNormal];
+    _MMNumberKeyboardButton *button = self.buttonDictionary[@(MMNumberKeyboardButtonSpecial)];
+    [button setTitle:title forState:UIControlStateNormal];
+    [button setStyle:style];
+    [button setImage:nil forState:UIControlStateNormal];
+    self.specialKeyHandler = handler;
 }
 
-- (void)configureSpecialKeyWithImage:(UIImage *)image target:(id)target action:(SEL)action
+- (void)configureSpecialKeyWithImage:(UIImage *)image buttonStyle:(MMNumberKeyboardButtonStyle)style actionHandler:(dispatch_block_t)handler
+{
+    _MMNumberKeyboardButton *button = self.buttonDictionary[@(MMNumberKeyboardButtonSpecial)];
+    [button setImage:image forState:UIControlStateNormal];
+    [button setStyle:style];
+    [button setTitle:nil forState:UIControlStateNormal];
+    self.specialKeyHandler = handler;
+}
+
+- (void)configureSpecialKeyWithTitle:(NSString *)title buttonStyle:(MMNumberKeyboardButtonStyle)style target:(id)target action:(SEL)action
 {
     __weak typeof(self)weakTarget = target;
     __weak typeof(self)weakSelf = self;
     
-    [self configureSpecialKeyWithImage:image actionHandler:^{
+    [self configureSpecialKeyWithTitle:title buttonStyle:style actionHandler:^{
+        __strong __typeof(&*weakTarget)strongTarget = weakTarget;
+        __strong __typeof(&*weakSelf)strongSelf = weakSelf;
+        
+        if (strongTarget) {
+            NSMethodSignature *methodSignature = [strongTarget methodSignatureForSelector:action];
+            NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methodSignature];
+            [invocation setSelector:action];
+            if (methodSignature.numberOfArguments > 2) {
+                [invocation setArgument:&strongSelf atIndex:2];
+            }
+            [invocation invokeWithTarget:strongTarget];
+        }
+    }];
+}
+
+
+- (void)configureSpecialKeyWithImage:(UIImage *)image buttonStyle:(MMNumberKeyboardButtonStyle)style target:(id)target action:(SEL)action
+{
+    __weak typeof(self)weakTarget = target;
+    __weak typeof(self)weakSelf = self;
+    
+    [self configureSpecialKeyWithImage:image buttonStyle:style actionHandler:^{
         __strong __typeof(&*weakTarget)strongTarget = weakTarget;
         __strong __typeof(&*weakSelf)strongSelf = weakSelf;
         

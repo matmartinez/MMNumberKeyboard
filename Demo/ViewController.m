@@ -25,6 +25,9 @@
     
     // Create and configure the keyboard.
     MMNumberKeyboard *keyboard = [[MMNumberKeyboard alloc] initWithFrame:CGRectZero];
+    [keyboard configureSpecialKeyWithTitle:@"–" buttonStyle:MMNumberKeyboardButtonStyleWhite actionHandler:^{
+        NSLog(@"special button was tapped!");
+    }];
     keyboard.allowsDecimalPoint = YES;
     keyboard.delegate = self;
     

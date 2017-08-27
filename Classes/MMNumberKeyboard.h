@@ -101,21 +101,43 @@ typedef NS_ENUM(NSUInteger, MMNumberKeyboardButtonStyle) {
 @property (weak, nonatomic) id <MMNumberKeyboardDelegate> delegate;
 
 /**
+ *  Configures the special key with a title and an action block.
+ *
+ *  @param title   The title to display in the key.
+ *  @param style   The style of the button key.
+ *  @param handler A handler block.
+ */
+- (void)configureSpecialKeyWithTitle:(NSString *)title buttonStyle:(MMNumberKeyboardButtonStyle)style actionHandler:(dispatch_block_t)handler;
+
+/**
  *  Configures the special key with an image and an action block.
  *
  *  @param image   The image to display in the key.
+ *  @param style   The style of the button key.
  *  @param handler A handler block.
  */
-- (void)configureSpecialKeyWithImage:(UIImage *)image actionHandler:(dispatch_block_t)handler;
+- (void)configureSpecialKeyWithImage:(UIImage *)image buttonStyle:(MMNumberKeyboardButtonStyle)style actionHandler:(dispatch_block_t)handler;
+
+/**
+ *  Configures the special key with an image and a target-action.
+ *
+ *  @param title  The title to display in the key.
+ *  @param style   The style of the button key.
+ *  @param target The target object—that is, the object to which the action message is sent.
+ *  @param action A selector identifying an action message. It cannot be NULL.
+ */
+- (void)configureSpecialKeyWithTitle:(NSString *)title buttonStyle:(MMNumberKeyboardButtonStyle)style target:(id)target action:(SEL)action;
 
 /**
  *  Configures the special key with an image and a target-action.
  *
  *  @param image  The image to display in the key.
+ *  @param style  The style of the button key.
  *  @param target The target object—that is, the object to which the action message is sent.
  *  @param action A selector identifying an action message. It cannot be NULL.
  */
-- (void)configureSpecialKeyWithImage:(UIImage *)image target:(id)target action:(SEL)action;
+- (void)configureSpecialKeyWithImage:(UIImage *)image buttonStyle:(MMNumberKeyboardButtonStyle)style target:(id)target action:(SEL)action;
+
 
 /**
  *  If @c YES, the decimal separator key will be displayed.
