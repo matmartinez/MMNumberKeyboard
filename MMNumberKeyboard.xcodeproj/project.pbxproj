@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		43DD25371F57F5A500FEA739 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43DD25361F57F5A500FEA739 /* Assets.xcassets */; };
+		43DD253E1F5810F600FEA739 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43DD253D1F5810F600FEA739 /* Images.xcassets */; };
 		BEEDEF1A1D0A57F7007D16E2 /* MMNumberKeyboard.h in Headers */ = {isa = PBXBuildFile; fileRef = BEEDEF181D0A57F7007D16E2 /* MMNumberKeyboard.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BEEDEF1B1D0A57F7007D16E2 /* MMNumberKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = BEEDEF191D0A57F7007D16E2 /* MMNumberKeyboard.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		43DD25361F57F5A500FEA739 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		43DD253D1F5810F600FEA739 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = SOURCE_ROOT; };
 		BEEDEF0D1D0A5768007D16E2 /* MMNumberKeyboard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MMNumberKeyboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEEDEF121D0A5768007D16E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BEEDEF181D0A57F7007D16E2 /* MMNumberKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMNumberKeyboard.h; path = Classes/MMNumberKeyboard.h; sourceTree = SOURCE_ROOT; };
@@ -53,7 +53,7 @@
 				BEEDEF181D0A57F7007D16E2 /* MMNumberKeyboard.h */,
 				BEEDEF191D0A57F7007D16E2 /* MMNumberKeyboard.m */,
 				BEEDEF121D0A5768007D16E2 /* Info.plist */,
-				43DD25361F57F5A500FEA739 /* Assets.xcassets */,
+				43DD253D1F5810F600FEA739 /* Images.xcassets */,
 			);
 			path = MMNumberKeyboard;
 			sourceTree = "<group>";
@@ -96,7 +96,7 @@
 		BEEDEF041D0A5768007D16E2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Matías Martínez";
 				TargetAttributes = {
 					BEEDEF0C1D0A5768007D16E2 = {
@@ -126,7 +126,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43DD25371F57F5A500FEA739 /* Assets.xcassets in Resources */,
+				43DD253E1F5810F600FEA739 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,8 +158,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -206,8 +208,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -237,6 +241,7 @@
 		BEEDEF161D0A5768007D16E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -253,6 +258,7 @@
 		BEEDEF171D0A5768007D16E2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
