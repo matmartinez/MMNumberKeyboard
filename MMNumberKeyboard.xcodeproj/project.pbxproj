@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		43DD253E1F5810F600FEA739 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43DD253D1F5810F600FEA739 /* Images.xcassets */; };
+		43DD25401F5815D200FEA739 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43DD253F1F5815D200FEA739 /* Assets.xcassets */; };
 		BEEDEF1A1D0A57F7007D16E2 /* MMNumberKeyboard.h in Headers */ = {isa = PBXBuildFile; fileRef = BEEDEF181D0A57F7007D16E2 /* MMNumberKeyboard.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BEEDEF1B1D0A57F7007D16E2 /* MMNumberKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = BEEDEF191D0A57F7007D16E2 /* MMNumberKeyboard.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		43DD253D1F5810F600FEA739 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = SOURCE_ROOT; };
+		43DD253F1F5815D200FEA739 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		BEEDEF0D1D0A5768007D16E2 /* MMNumberKeyboard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MMNumberKeyboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEEDEF121D0A5768007D16E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BEEDEF181D0A57F7007D16E2 /* MMNumberKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMNumberKeyboard.h; path = Classes/MMNumberKeyboard.h; sourceTree = SOURCE_ROOT; };
@@ -53,7 +53,7 @@
 				BEEDEF181D0A57F7007D16E2 /* MMNumberKeyboard.h */,
 				BEEDEF191D0A57F7007D16E2 /* MMNumberKeyboard.m */,
 				BEEDEF121D0A5768007D16E2 /* Info.plist */,
-				43DD253D1F5810F600FEA739 /* Images.xcassets */,
+				43DD253F1F5815D200FEA739 /* Assets.xcassets */,
 			);
 			path = MMNumberKeyboard;
 			sourceTree = "<group>";
@@ -126,7 +126,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43DD253E1F5810F600FEA739 /* Images.xcassets in Resources */,
+				43DD25401F5815D200FEA739 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
