@@ -53,6 +53,26 @@ FOUNDATION_EXPORT const unsigned char MMNumberKeyboardVersionString[];
 @end
 
 /**
+ *  Specifies the style for the keyboard.
+ */
+typedef NS_ENUM(NSUInteger, MMNumberKeyboardStyle) {
+    /**
+     *  An automatic style. It sets the appropiate style to match the appearance of the system keyboard, for example, using rounded buttons on an iPad.
+     */
+    MMNumberKeyboardStyleAutomatic,
+    
+    /**
+     *  A plain buttons keyboard style. The buttons take the full width of the keyboard and are divided by inline separators. This style is not supported when the keyboard needs to be inset.
+     */
+    MMNumberKeyboardStylePlainButtons,
+    
+    /**
+     *  A rounded buttons keyboard style. The buttons are displayed with a rounded style, and can be inset from the sides of the keyboard.
+     */
+    MMNumberKeyboardStyleRoundedButtons
+};
+
+/**
  *  Specifies the style of a keyboard button.
  */
 typedef NS_ENUM(NSUInteger, MMNumberKeyboardButtonStyle) {
@@ -130,6 +150,13 @@ typedef NS_ENUM(NSUInteger, MMNumberKeyboardButtonStyle) {
  *  @note The default visible title of the Return key is “Done”.
  */
 @property (copy, nonatomic) NSString *returnKeyTitle;
+
+/**
+ *  The preferred keyboard style.
+ *
+ *  @note The default style for the keyboard is @c MMNumberKeyboardStyleAutomatic.
+ */
+@property (assign, nonatomic) MMNumberKeyboardStyle preferredStyle;
 
 /**
  *  The button style of the Return key.

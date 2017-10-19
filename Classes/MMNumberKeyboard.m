@@ -442,6 +442,15 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
     }
 }
 
+- (void)setPreferredStyle:(MMNumberKeyboardStyle)style
+{
+    if (style != _preferredStyle) {
+        _preferredStyle = style;
+        
+        [self setNeedsLayout];
+    }
+}
+
 #pragma mark - Layout.
 
 NS_INLINE CGRect MMButtonRectMake(CGRect rect, CGRect contentRect, BOOL usesRoundedCorners){
@@ -482,9 +491,22 @@ NS_INLINE CGRect MMButtonRectMake(CGRect rect, CGRect contentRect, BOOL usesRoun
     
     // Settings.
     BOOL usesRoundedButtons = NO;
+    
     if ([UITraitCollection class]) {
         const BOOL hasMargins = !UIEdgeInsetsEqualToEdgeInsets(insets, UIEdgeInsetsZero);
-        usesRoundedButtons = (self.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiomPad) || (hasMargins);
+        const BOOL isIdiomPad = (self.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiomPad);
+        const BOOL systemKeyboardUsesRoundedButtons = self._systemUsesRoundedRectButtonsOnAllInterfaceIdioms;
+        
+        if (hasMargins || isIdiomPad) {
+            usesRoundedButtons = YES;
+        } else {
+            const BOOL prefersPlainButtons = (self.preferredStyle == MMNumberKeyboardStylePlainButtons);
+            const BOOL prefersRoundedButtons = (self.preferredStyle == MMNumberKeyboardStyleRoundedButtons);
+            
+            if (!prefersPlainButtons) {
+                usesRoundedButtons = systemKeyboardUsesRoundedButtons || prefersRoundedButtons;
+            }
+        }
     } else {
         usesRoundedButtons = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
     }
@@ -688,6 +710,18 @@ NS_INLINE CGRect MMButtonRectMake(CGRect rect, CGRect contentRect, BOOL usesRoun
     }
 
     return [UIImage imageNamed:resource];
+}
+
+#pragma mark - Matching the system's appearance.
+
+- (BOOL)_systemUsesRoundedRectButtonsOnAllInterfaceIdioms
+{
+    static BOOL usesRoundedRectButtons;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        usesRoundedRectButtons = ([[[UIDevice currentDevice] systemVersion] compare:@"11.0" options:NSNumericSearch] != NSOrderedAscending);
+    });
+    return usesRoundedRectButtons;
 }
 
 @end
