@@ -30,7 +30,7 @@ FOUNDATION_EXPORT const unsigned char MMNumberKeyboardVersionString[];
  *
  *  @return Returns	@c YES if the text should be inserted or @c NO if it should not.
  */
-- (BOOL)numberKeyboard:(MMNumberKeyboard *)numberKeyboard shouldInsertText:(NSString *)text;
+- (BOOL)numberKeyboard:(nonnull MMNumberKeyboard *)numberKeyboard shouldInsertText:(nonnull NSString *)text;
 
 /**
  *  Asks the delegate if the keyboard should process the pressing of the return button.
@@ -39,7 +39,7 @@ FOUNDATION_EXPORT const unsigned char MMNumberKeyboardVersionString[];
  *
  *  @return Returns	@c YES if the keyboard should implement its default behavior for the return button; otherwise, @c NO.
  */
-- (BOOL)numberKeyboardShouldReturn:(MMNumberKeyboard *)numberKeyboard;
+- (BOOL)numberKeyboardShouldReturn:(nonnull MMNumberKeyboard *)numberKeyboard;
 
 /**
  *  Asks the delegate if the keyboard should remove the character just before the cursor.
@@ -48,7 +48,7 @@ FOUNDATION_EXPORT const unsigned char MMNumberKeyboardVersionString[];
  *
  *  @return Returns	@c YES if the keyboard should implement its default behavior for the delete backward button; otherwise, @c NO.
  */
-- (BOOL)numberKeyboardShouldDeleteBackward:(MMNumberKeyboard *)numberKeyboard;
+- (BOOL)numberKeyboardShouldDeleteBackward:(nonnull MMNumberKeyboard *)numberKeyboard;
 
 @end
 
@@ -108,17 +108,17 @@ typedef NS_ENUM(NSUInteger, MMNumberKeyboardButtonStyle) {
  *
  *  @returns An initialized view object or @c nil if the view could not be initialized.
  */
-- (instancetype)initWithFrame:(CGRect)frame inputViewStyle:(UIInputViewStyle)inputViewStyle locale:(NSLocale *)locale;
+- (nullable instancetype)initWithFrame:(CGRect)frame inputViewStyle:(UIInputViewStyle)inputViewStyle locale:(nullable NSLocale *)locale;
 
 /**
  *  The receiver key input object. If @c nil the object at top of the responder chain is used.
  */
-@property (weak, nonatomic) id <UIKeyInput> keyInput;
+@property (weak, nonatomic, nullable) id <UIKeyInput> keyInput;
 
 /**
  *  Delegate to change text insertion or return key behavior.
  */
-@property (weak, nonatomic) id <MMNumberKeyboardDelegate> delegate;
+@property (weak, nonatomic, nullable) id <MMNumberKeyboardDelegate> delegate;
 
 /**
  *  Configures the special key with an image and an action block.
@@ -126,7 +126,7 @@ typedef NS_ENUM(NSUInteger, MMNumberKeyboardButtonStyle) {
  *  @param image   The image to display in the key.
  *  @param handler A handler block.
  */
-- (void)configureSpecialKeyWithImage:(UIImage *)image actionHandler:(dispatch_block_t)handler;
+- (void)configureSpecialKeyWithImage:(nonnull UIImage *)image actionHandler:(nonnull dispatch_block_t)handler;
 
 /**
  *  Configures the special key with an image and a target-action.
@@ -135,7 +135,7 @@ typedef NS_ENUM(NSUInteger, MMNumberKeyboardButtonStyle) {
  *  @param target The target object—that is, the object to which the action message is sent.
  *  @param action A selector identifying an action message. It cannot be NULL.
  */
-- (void)configureSpecialKeyWithImage:(UIImage *)image target:(id)target action:(SEL)action;
+- (void)configureSpecialKeyWithImage:(nonnull UIImage *)image target:(nullable id)target action:(nullable SEL)action;
 
 /**
  *  If @c YES, the decimal separator key will be displayed.
@@ -149,7 +149,7 @@ typedef NS_ENUM(NSUInteger, MMNumberKeyboardButtonStyle) {
  *
  *  @note The default visible title of the Return key is “Done”.
  */
-@property (copy, nonatomic) NSString *returnKeyTitle;
+@property (copy, nonatomic, nonnull) NSString *returnKeyTitle;
 
 /**
  *  The preferred keyboard style.
