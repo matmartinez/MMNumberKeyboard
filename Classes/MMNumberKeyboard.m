@@ -135,12 +135,20 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
     const NSInteger numberMin = MMNumberKeyboardButtonNumberMin;
     const NSInteger numberMax = MMNumberKeyboardButtonNumberMax;
     
-    UIFont *buttonFont;
-    if ([UIFont respondsToSelector:@selector(systemFontOfSize:weight:)]) {
-        buttonFont = [UIFont systemFontOfSize:28.0f weight:UIFontWeightLight];
-    } else {
-        buttonFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:28.0f];
-    }
+    const CGFloat buttonFontPointSize = 28.0f;
+    UIFont *buttonFont = ({
+        UIFont *font = nil;
+#if defined(__has_attribute) && __has_attribute(availability)
+        if (@available(iOS 8.2, *)) {
+            font = [UIFont systemFontOfSize:buttonFontPointSize weight:UIFontWeightLight];
+        }
+#else
+        if ([UIFont respondsToSelector:@selector(systemFontOfSize:weight:)]) {
+            font = [UIFont systemFontOfSize:buttonFontPointSize weight:UIFontWeightLight];
+        }
+#endif
+        font ?: [UIFont fontWithName:@"HelveticaNeue-Light" size:buttonFontPointSize];
+    });
     
     UIFont *doneButtonFont = [UIFont systemFontOfSize:17.0f];
     
