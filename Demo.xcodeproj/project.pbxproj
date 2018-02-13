@@ -18,6 +18,8 @@
 		09019CCB1C1A2831004D0A5D /* MMNumberKeyboardDismissKey.png in Resources */ = {isa = PBXBuildFile; fileRef = 09019CC51C1A2831004D0A5D /* MMNumberKeyboardDismissKey.png */; };
 		09019CCC1C1A2831004D0A5D /* MMNumberKeyboardDismissKey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09019CC61C1A2831004D0A5D /* MMNumberKeyboardDismissKey@2x.png */; };
 		09019CCD1C1A2831004D0A5D /* MMNumberKeyboardDismissKey@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09019CC71C1A2831004D0A5D /* MMNumberKeyboardDismissKey@3x.png */; };
+		09752ECD2031EDA5008E3D92 /* MMKeyboardButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 09752ECC2031EDA5008E3D92 /* MMKeyboardButton.m */; };
+		09E19C8C20332AC800091E14 /* MMTextInputDelegateProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E19C8B20332AC800091E14 /* MMTextInputDelegateProxy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,10 @@
 		09019CC51C1A2831004D0A5D /* MMNumberKeyboardDismissKey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MMNumberKeyboardDismissKey.png; sourceTree = "<group>"; };
 		09019CC61C1A2831004D0A5D /* MMNumberKeyboardDismissKey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MMNumberKeyboardDismissKey@2x.png"; sourceTree = "<group>"; };
 		09019CC71C1A2831004D0A5D /* MMNumberKeyboardDismissKey@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MMNumberKeyboardDismissKey@3x.png"; sourceTree = "<group>"; };
+		09752ECB2031EDA5008E3D92 /* MMKeyboardButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMKeyboardButton.h; sourceTree = "<group>"; };
+		09752ECC2031EDA5008E3D92 /* MMKeyboardButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMKeyboardButton.m; sourceTree = "<group>"; };
+		09E19C8A20332AC800091E14 /* MMTextInputDelegateProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMTextInputDelegateProxy.h; sourceTree = "<group>"; };
+		09E19C8B20332AC800091E14 /* MMTextInputDelegateProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMTextInputDelegateProxy.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +101,10 @@
 			children = (
 				09019CBE1C1A281D004D0A5D /* MMNumberKeyboard.h */,
 				09019CBF1C1A281D004D0A5D /* MMNumberKeyboard.m */,
+				09752ECB2031EDA5008E3D92 /* MMKeyboardButton.h */,
+				09752ECC2031EDA5008E3D92 /* MMKeyboardButton.m */,
+				09E19C8A20332AC800091E14 /* MMTextInputDelegateProxy.h */,
+				09E19C8B20332AC800091E14 /* MMTextInputDelegateProxy.m */,
 			);
 			path = Classes;
 			sourceTree = SOURCE_ROOT;
@@ -146,7 +156,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 09019C861C1A1C33004D0A5D /* Build configuration list for PBXProject "MMNumberKeyboard" */;
+			buildConfigurationList = 09019C861C1A1C33004D0A5D /* Build configuration list for PBXProject "Demo" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -189,6 +199,8 @@
 				09019C961C1A1C33004D0A5D /* ViewController.m in Sources */,
 				09019CC01C1A281D004D0A5D /* MMNumberKeyboard.m in Sources */,
 				09019C931C1A1C33004D0A5D /* AppDelegate.m in Sources */,
+				09E19C8C20332AC800091E14 /* MMTextInputDelegateProxy.m in Sources */,
+				09752ECD2031EDA5008E3D92 /* MMKeyboardButton.m in Sources */,
 				09019C901C1A1C33004D0A5D /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -317,7 +329,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		09019C861C1A1C33004D0A5D /* Build configuration list for PBXProject "MMNumberKeyboard" */ = {
+		09019C861C1A1C33004D0A5D /* Build configuration list for PBXProject "Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				09019CA01C1A1C33004D0A5D /* Debug */,

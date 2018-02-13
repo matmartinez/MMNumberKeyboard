@@ -7,6 +7,8 @@
 //
 
 #import "MMNumberKeyboard.h"
+#import "MMKeyboardButton.h"
+#import "MMTextInputDelegateProxy.h"
 
 typedef NS_ENUM(NSUInteger, MMNumberKeyboardButton) {
     MMNumberKeyboardButtonNumberMin,
@@ -18,28 +20,14 @@ typedef NS_ENUM(NSUInteger, MMNumberKeyboardButton) {
     MMNumberKeyboardButtonNone = NSNotFound,
 };
 
-@interface MMNumberKeyboard () <UIInputViewAudioFeedback>
+@interface MMNumberKeyboard () <UIInputViewAudioFeedback, UITextInputDelegate>
 
 @property (strong, nonatomic) NSDictionary *buttonDictionary;
 @property (strong, nonatomic) NSMutableArray *separatorViews;
 @property (strong, nonatomic) NSLocale *locale;
+@property (strong, nonatomic) MMTextInputDelegateProxy *keyInputProxy;
 
 @property (copy, nonatomic) dispatch_block_t specialKeyHandler;
-
-@end
-
-@interface _MMNumberKeyboardButton : UIButton
-
-+ (_MMNumberKeyboardButton *)keyboardButtonWithStyle:(MMNumberKeyboardButtonStyle)style;
-
-// The style of the keyboard button.
-@property (assign, nonatomic) MMNumberKeyboardButtonStyle style;
-
-// Determines if the button has rounded corners.
-@property (assign, nonatomic) BOOL usesRoundedCorners;
-
-// Notes the continuous press time interval, then adds the target/action to the UIControlEventValueChanged event.
-- (void)addTarget:(id)target action:(SEL)action forContinuousPressWithTimeInterval:(NSTimeInterval)timeInterval;
 
 @end
 
@@ -153,7 +141,7 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
     UIFont *doneButtonFont = [UIFont systemFontOfSize:17.0f];
     
     for (MMNumberKeyboardButton key = numberMin; key < numberMax; key++) {
-        UIButton *button = [_MMNumberKeyboardButton keyboardButtonWithStyle:MMNumberKeyboardButtonStyleWhite];
+        UIButton *button = [MMKeyboardButton keyboardButtonWithStyle:MMNumberKeyboardButtonStyleWhite];
         NSString *title = @(key - numberMin).stringValue;
         
         [button setTitle:title forState:UIControlStateNormal];
@@ -164,24 +152,24 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
     
     UIImage *backspaceImage = [self.class _keyboardImageNamed:@"MMNumberKeyboardDeleteKey.png"];
     
-    UIButton *backspaceButton = [_MMNumberKeyboardButton keyboardButtonWithStyle:MMNumberKeyboardButtonStyleGray];
+    UIButton *backspaceButton = [MMKeyboardButton keyboardButtonWithStyle:MMNumberKeyboardButtonStyleGray];
     [backspaceButton setImage:[backspaceImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
     
-    [(_MMNumberKeyboardButton *)backspaceButton addTarget:self action:@selector(_backspaceRepeat:) forContinuousPressWithTimeInterval:0.15f];
+    [(MMKeyboardButton *)backspaceButton addTarget:self action:@selector(_backspaceRepeat:) forContinuousPressWithTimeInterval:0.15f];
     
     [buttonDictionary setObject:backspaceButton forKey:@(MMNumberKeyboardButtonBackspace)];
     
-    UIButton *specialButton = [_MMNumberKeyboardButton keyboardButtonWithStyle:MMNumberKeyboardButtonStyleGray];
+    UIButton *specialButton = [MMKeyboardButton keyboardButtonWithStyle:MMNumberKeyboardButtonStyleGray];
     
     [buttonDictionary setObject:specialButton forKey:@(MMNumberKeyboardButtonSpecial)];
     
-    UIButton *doneButton = [_MMNumberKeyboardButton keyboardButtonWithStyle:MMNumberKeyboardButtonStyleDone];
+    UIButton *doneButton = [MMKeyboardButton keyboardButtonWithStyle:MMNumberKeyboardButtonStyleDone];
     [doneButton.titleLabel setFont:doneButtonFont];
     [doneButton setTitle:UIKitLocalizedString(@"Done") forState:UIControlStateNormal];
     
     [buttonDictionary setObject:doneButton forKey:@(MMNumberKeyboardButtonDone)];
     
-    UIButton *decimalPointButton = [_MMNumberKeyboardButton keyboardButtonWithStyle:MMNumberKeyboardButtonStyleWhite];
+    UIButton *decimalPointButton = [MMKeyboardButton keyboardButtonWithStyle:MMNumberKeyboardButtonStyleWhite];
     
     NSLocale *locale = self.locale ?: [NSLocale currentLocale];
     NSString *decimalSeparator = [locale objectForKey:NSLocaleDecimalSeparator];
@@ -205,6 +193,17 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
     }
     
     self.buttonDictionary = buttonDictionary;
+}
+
+- (void)_configureButtonsForKeyInputState
+{
+    const BOOL hasText = self.keyInput.hasText;
+    const BOOL enablesReturnKeyAutomatically = self.enablesReturnKeyAutomatically;
+    
+    MMKeyboardButton *button = self.buttonDictionary[@(MMNumberKeyboardButtonDone)];
+    if (button) {
+        button.enabled = (!enablesReturnKeyAutomatically) || (enablesReturnKeyAutomatically && hasText);
+    }
 }
 
 #pragma mark - Input.
@@ -323,6 +322,8 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
         
         [keyInput insertText:decimalText];
     }
+    
+    [self _configureButtonsForKeyInputState];
 }
 
 - (void)_backspaceRepeat:(UIButton *)button
@@ -340,19 +341,65 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
 - (id<UIKeyInput>)keyInput
 {
     id <UIKeyInput> keyInput = _keyInput;
-    if (keyInput) {
-        return keyInput;
+    
+    if (!keyInput) {
+        keyInput = [UIResponder MM_currentFirstResponder];
+        
+        if (![keyInput conformsToProtocol:@protocol(UIKeyInput)]) {
+            NSLog(@"Warning: First responder %@ does not conform to the UIKeyInput protocol.", keyInput);
+            keyInput = nil;
+        }
     }
     
-    keyInput = [UIResponder MM_currentFirstResponder];
-    if (![keyInput conformsToProtocol:@protocol(UIKeyInput)]) {
-        NSLog(@"Warning: First responder %@ does not conform to the UIKeyInput protocol.", keyInput);
-        return nil;
+    MMTextInputDelegateProxy *keyInputProxy = _keyInputProxy;
+    
+    if (keyInput != _keyInput) {
+        if ([_keyInput conformsToProtocol:@protocol(UITextInput)]) {
+            [(id <UITextInput>)_keyInput setInputDelegate:keyInputProxy.previousTextInputDelegate];
+        }
+        
+        if ([keyInput conformsToProtocol:@protocol(UITextInput)]) {
+            keyInputProxy = [MMTextInputDelegateProxy proxyForTextInput:(id <UITextInput>)keyInput delegate:self];
+            [(id <UITextInput>)keyInput setInputDelegate:(id)keyInputProxy];
+        } else {
+            keyInputProxy = nil;
+        }
     }
     
     _keyInput = keyInput;
+    _keyInputProxy = keyInputProxy;
     
     return keyInput;
+}
+
+#pragma mark - <UITextInputDelegate>
+
+- (void)selectionWillChange:(id <UITextInput>)textInput
+{
+    // Intentionally left unimplemented in conformance with <UITextInputDelegate>.
+}
+
+- (void)selectionDidChange:(id <UITextInput>)textInput
+{
+    // Intentionally left unimplemented in conformance with <UITextInputDelegate>.
+}
+
+- (void)textWillChange:(id <UITextInput>)textInput
+{
+    // Intentionally left unimplemented in conformance with <UITextInputDelegate>.
+}
+
+- (void)textDidChange:(id <UITextInput>)textInput
+{
+    [self _configureButtonsForKeyInputState];
+}
+
+#pragma mark - Key input lookup.
+
+- (void)didMoveToWindow
+{
+    [super didMoveToWindow];
+    [self _configureButtonsForKeyInputState];
 }
 
 #pragma mark - Default special action.
@@ -443,10 +490,19 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
     if (style != _returnKeyButtonStyle) {
         _returnKeyButtonStyle = style;
         
-        _MMNumberKeyboardButton *button = self.buttonDictionary[@(MMNumberKeyboardButtonDone)];
+        MMKeyboardButton *button = self.buttonDictionary[@(MMNumberKeyboardButtonDone)];
         if (button) {
             button.style = style;
         }
+    }
+}
+
+- (void)setEnablesReturnKeyAutomatically:(BOOL)enablesReturnKeyAutomatically
+{
+    if (enablesReturnKeyAutomatically != _enablesReturnKeyAutomatically) {
+        _enablesReturnKeyAutomatically = enablesReturnKeyAutomatically;
+        
+        [self _configureButtonsForKeyInputState];
     }
 }
 
@@ -673,7 +729,7 @@ NS_INLINE CGRect MMButtonRectMake(CGRect rect, CGRect contentRect, BOOL usesRoun
         [separatorViews removeAllObjects];
     }
     
-    for (_MMNumberKeyboardButton *button in buttonDictionary.allValues) {
+    for (MMKeyboardButton *button in buttonDictionary.allValues) {
         button.usesRoundedCorners = usesRoundedButtons;
     }
 }
@@ -730,206 +786,6 @@ NS_INLINE CGRect MMButtonRectMake(CGRect rect, CGRect contentRect, BOOL usesRoun
         usesRoundedRectButtons = ([[[UIDevice currentDevice] systemVersion] compare:@"11.0" options:NSNumericSearch] != NSOrderedAscending);
     });
     return usesRoundedRectButtons;
-}
-
-@end
-
-@interface _MMNumberKeyboardButton ()
-
-@property (strong, nonatomic) NSTimer *continuousPressTimer;
-@property (assign, nonatomic) NSTimeInterval continuousPressTimeInterval;
-
-@property (strong, nonatomic) UIColor *fillColor;
-@property (strong, nonatomic) UIColor *highlightedFillColor;
-
-@property (strong, nonatomic) UIColor *controlColor;
-@property (strong, nonatomic) UIColor *highlightedControlColor;
-
-@end
-
-@implementation _MMNumberKeyboardButton
-
-+ (_MMNumberKeyboardButton *)keyboardButtonWithStyle:(MMNumberKeyboardButtonStyle)style
-{
-    _MMNumberKeyboardButton *button = [self buttonWithType:UIButtonTypeCustom];
-    button.style = style;
-
-    return button;
-}
-
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self _buttonStyleDidChange];
-    }
-    return self;
-}
-
-- (void)setStyle:(MMNumberKeyboardButtonStyle)style
-{
-    if (style != _style) {
-        _style = style;
-        
-        [self _buttonStyleDidChange];
-    }
-}
-
-- (void)_buttonStyleDidChange
-{
-    const UIUserInterfaceIdiom interfaceIdiom = UI_USER_INTERFACE_IDIOM();
-    const MMNumberKeyboardButtonStyle style = self.style;
-    
-    UIColor *fillColor = nil;
-    UIColor *highlightedFillColor = nil;
-    if (style == MMNumberKeyboardButtonStyleWhite) {
-        fillColor = [UIColor whiteColor];
-        highlightedFillColor = [UIColor colorWithRed:0.82f green:0.837f blue:0.863f alpha:1];
-    } else if (style == MMNumberKeyboardButtonStyleGray) {
-        if (interfaceIdiom == UIUserInterfaceIdiomPad) {
-            fillColor =  [UIColor colorWithRed:0.674f green:0.7f blue:0.744f alpha:1];
-        } else {
-            fillColor = [UIColor colorWithRed:0.81f green:0.837f blue:0.86f alpha:1];
-        }
-        highlightedFillColor = [UIColor whiteColor];
-    } else if (style == MMNumberKeyboardButtonStyleDone) {
-        fillColor = [UIColor colorWithRed:0 green:0.479f blue:1 alpha:1];
-        highlightedFillColor = [UIColor whiteColor];
-    }
-    
-    UIColor *controlColor = nil;
-    UIColor *highlightedControlColor = nil;
-    if (style == MMNumberKeyboardButtonStyleDone) {
-        controlColor = [UIColor whiteColor];
-        highlightedControlColor = [UIColor blackColor];
-    } else {
-        controlColor = [UIColor blackColor];
-        highlightedControlColor = [UIColor blackColor];
-    }
-    
-    [self setTitleColor:controlColor forState:UIControlStateNormal];
-    [self setTitleColor:highlightedControlColor forState:UIControlStateSelected];
-    [self setTitleColor:highlightedControlColor forState:UIControlStateHighlighted];
-    
-    self.fillColor = fillColor;
-    self.highlightedFillColor = highlightedFillColor;
-    self.controlColor = controlColor;
-    self.highlightedControlColor = highlightedControlColor;
-    
-    [self _updateButtonAppearance];
-}
-
-- (void)willMoveToWindow:(UIWindow *)newWindow
-{
-    [super willMoveToWindow:newWindow];
-    
-    if (newWindow) {
-        [self _updateButtonAppearance];
-    }
-}
-
-- (void)_updateButtonAppearance
-{
-    if (self.isHighlighted || self.isSelected) {
-        self.backgroundColor = self.highlightedFillColor;
-        self.imageView.tintColor = self.controlColor;
-    } else {
-        self.backgroundColor = self.fillColor;
-        self.imageView.tintColor = self.highlightedControlColor;
-    }
-}
-
-- (void)setHighlighted:(BOOL)highlighted
-{
-    [super setHighlighted:highlighted];
-    
-    [self _updateButtonAppearance];
-}
-
-- (void)setUsesRoundedCorners:(BOOL)usesRoundedCorners
-{
-    if (usesRoundedCorners != _usesRoundedCorners) {
-        _usesRoundedCorners = usesRoundedCorners;
-        
-        static const CGFloat radius = 4.0f;
-        
-        CALayer *buttonLayer = [self layer];
-        buttonLayer.cornerRadius = (usesRoundedCorners) ? radius : 0.0f;
-        buttonLayer.shadowOpacity = (usesRoundedCorners) ? 1.0f : 0.0f;
-        buttonLayer.shadowColor = [UIColor colorWithRed:0.533f green:0.541f blue:0.556f alpha:1].CGColor;
-        buttonLayer.shadowOffset = CGSizeMake(0, 1.0f);
-        buttonLayer.shadowRadius = 0.0f;
-    }
-}
-
-#pragma mark - Continuous press.
-
-- (void)addTarget:(id)target action:(SEL)action forContinuousPressWithTimeInterval:(NSTimeInterval)timeInterval
-{
-    self.continuousPressTimeInterval = timeInterval;
-    
-    [self addTarget:target action:action forControlEvents:UIControlEventValueChanged];
-}
-
-- (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
-{
-    BOOL begins = [super beginTrackingWithTouch:touch withEvent:event];
-    const NSTimeInterval continuousPressTimeInterval = self.continuousPressTimeInterval;
-    
-    if (begins && continuousPressTimeInterval > 0) {
-        [self _beginContinuousPressDelayed];
-    }
-    
-    return begins;
-}
-
-- (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
-{
-    [super endTrackingWithTouch:touch withEvent:event];
-    [self _cancelContinousPressIfNeeded];
-}
-
-- (void)dealloc
-{
-    [self _cancelContinousPressIfNeeded];
-}
-
-- (void)_beginContinuousPress
-{
-    const NSTimeInterval continuousPressTimeInterval = self.continuousPressTimeInterval;
-    
-    if (!self.isTracking || continuousPressTimeInterval == 0) {
-        return;
-    }
-    
-    self.continuousPressTimer = [NSTimer scheduledTimerWithTimeInterval:continuousPressTimeInterval target:self selector:@selector(_handleContinuousPressTimer:) userInfo:nil repeats:YES];
-}
-
-- (void)_handleContinuousPressTimer:(NSTimer *)timer
-{
-    if (!self.isTracking) {
-        [self _cancelContinousPressIfNeeded];
-        return;
-    }
-    
-    [self sendActionsForControlEvents:UIControlEventValueChanged];
-}
-
-- (void)_beginContinuousPressDelayed
-{
-    [self performSelector:@selector(_beginContinuousPress) withObject:nil afterDelay:self.continuousPressTimeInterval * 2.0f];
-}
-
-- (void)_cancelContinousPressIfNeeded
-{
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(_beginContinuousPress) object:nil];
-    
-    NSTimer *timer = self.continuousPressTimer;
-    if (timer) {
-        [timer invalidate];
-        
-        self.continuousPressTimer = nil;
-    }
 }
 
 @end

@@ -165,4 +165,11 @@ typedef NS_ENUM(NSUInteger, MMNumberKeyboardButtonStyle) {
  */
 @property (assign, nonatomic) MMNumberKeyboardButtonStyle returnKeyButtonStyle;
 
+/**
+ *  A value indicating whether the Return key is automatically enabled when the user is entering numbers.
+ *
+ *  @note The default value for this property is @c NO. If you set it to @c YES, the keyboard disables the Return key when the text entry area contains no text. As soon as the user enters some text, the Return key is automatically enabled.
+ */
+@property (assign, nonatomic) BOOL enablesReturnKeyAutomatically;
+
 @end
