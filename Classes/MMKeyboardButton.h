@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "MMNumberKeyboard.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  *  The custom button class used on @c MMNumberKeyboard.
  */
@@ -51,3 +53,5 @@
 - (void)addTarget:(id)target action:(SEL)action forContinuousPressWithTimeInterval:(NSTimeInterval)timeInterval;
 
 @end
+
+NS_ASSUME_NONNULL_END

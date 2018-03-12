@@ -103,7 +103,7 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
     [self configureSpecialKeyWithImage:dismissImage target:self action:@selector(_dismissKeyboard:)];
     
     // Add default return key title.
-    [self setReturnKeyTitle:[self defaultReturnKeyTitle]];
+    [self setReturnKeyTitle:nil];
     
     // Add default return key style.
     [self setReturnKeyButtonStyle:MMNumberKeyboardButtonStyleDone];
@@ -459,6 +459,10 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
 
 - (void)setReturnKeyTitle:(NSString *)title
 {
+    if (!title) {
+        title = [self defaultReturnKeyTitle];
+    }
+    
     if (![title isEqualToString:self.returnKeyTitle]) {
         UIButton *button = self.buttonDictionary[@(MMNumberKeyboardButtonDone)];
         if (button) {

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 //! Project version number for MMNumberKeyboard.
 FOUNDATION_EXPORT double MMNumberKeyboardVersionNumber;
 
@@ -108,17 +110,17 @@ typedef NS_ENUM(NSUInteger, MMNumberKeyboardButtonStyle) {
  *
  *  @returns An initialized view object or @c nil if the view could not be initialized.
  */
-- (instancetype)initWithFrame:(CGRect)frame inputViewStyle:(UIInputViewStyle)inputViewStyle locale:(NSLocale *)locale;
+- (instancetype)initWithFrame:(CGRect)frame inputViewStyle:(UIInputViewStyle)inputViewStyle locale:(nullable NSLocale *)locale;
 
 /**
  *  The receiver key input object. If @c nil the object at top of the responder chain is used.
  */
-@property (weak, nonatomic) id <UIKeyInput> keyInput;
+@property (weak, nonatomic, nullable) id <UIKeyInput> keyInput;
 
 /**
  *  Delegate to change text insertion or return key behavior.
  */
-@property (weak, nonatomic) id <MMNumberKeyboardDelegate> delegate;
+@property (weak, nonatomic, nullable) id <MMNumberKeyboardDelegate> delegate;
 
 /**
  *  Configures the special key with an image and an action block.
@@ -126,7 +128,7 @@ typedef NS_ENUM(NSUInteger, MMNumberKeyboardButtonStyle) {
  *  @param image   The image to display in the key.
  *  @param handler A handler block.
  */
-- (void)configureSpecialKeyWithImage:(UIImage *)image actionHandler:(dispatch_block_t)handler;
+- (void)configureSpecialKeyWithImage:(UIImage *)image actionHandler:(nullable dispatch_block_t)handler;
 
 /**
  *  Configures the special key with an image and a target-action.
@@ -149,7 +151,7 @@ typedef NS_ENUM(NSUInteger, MMNumberKeyboardButtonStyle) {
  *
  *  @note The default visible title of the Return key is “Done”.
  */
-@property (copy, nonatomic) NSString *returnKeyTitle;
+@property (copy, nonatomic, null_resettable) NSString *returnKeyTitle;
 
 /**
  *  The preferred keyboard style.
@@ -173,3 +175,5 @@ typedef NS_ENUM(NSUInteger, MMNumberKeyboardButtonStyle) {
 @property (assign, nonatomic) BOOL enablesReturnKeyAutomatically;
 
 @end
+
+NS_ASSUME_NONNULL_END
