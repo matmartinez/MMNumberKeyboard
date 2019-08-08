@@ -9,6 +9,7 @@
 #import "MMNumberKeyboard.h"
 #import "MMKeyboardButton.h"
 #import "MMTextInputDelegateProxy.h"
+#import "UIColor+MMNumberKeyboardAdditions.h"
 
 typedef NS_ENUM(NSUInteger, MMNumberKeyboardButton) {
     MMNumberKeyboardButtonNumberMin,
@@ -98,7 +99,7 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
     self.separatorViews = [NSMutableArray array];
     
     // Add default action.
-    UIImage *dismissImage = [self.class _keyboardImageNamed:@"MMNumberKeyboardDismissKey.png"];
+    UIImage *dismissImage = [[self.class _keyboardImageNamed:@"MMNumberKeyboardDismissKey.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     
     [self configureSpecialKeyWithImage:dismissImage target:self action:@selector(_dismissKeyboard:)];
     
@@ -141,7 +142,7 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
     UIFont *doneButtonFont = [UIFont systemFontOfSize:17.0f];
     
     for (MMNumberKeyboardButton key = numberMin; key < numberMax; key++) {
-        UIButton *button = [MMKeyboardButton keyboardButtonWithStyle:MMNumberKeyboardButtonStyleWhite];
+        UIButton *button = [MMKeyboardButton keyboardButtonWithStyle:MMNumberKeyboardButtonStylePrimary];
         NSString *title = @(key - numberMin).stringValue;
         
         [button setTitle:title forState:UIControlStateNormal];
@@ -152,14 +153,14 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
     
     UIImage *backspaceImage = [self.class _keyboardImageNamed:@"MMNumberKeyboardDeleteKey.png"];
     
-    UIButton *backspaceButton = [MMKeyboardButton keyboardButtonWithStyle:MMNumberKeyboardButtonStyleGray];
+    UIButton *backspaceButton = [MMKeyboardButton keyboardButtonWithStyle:MMNumberKeyboardButtonStyleSecondary];
     [backspaceButton setImage:[backspaceImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
     
     [(MMKeyboardButton *)backspaceButton addTarget:self action:@selector(_backspaceRepeat:) forContinuousPressWithTimeInterval:0.15f];
     
     [buttonDictionary setObject:backspaceButton forKey:@(MMNumberKeyboardButtonBackspace)];
     
-    UIButton *specialButton = [MMKeyboardButton keyboardButtonWithStyle:MMNumberKeyboardButtonStyleGray];
+    UIButton *specialButton = [MMKeyboardButton keyboardButtonWithStyle:MMNumberKeyboardButtonStyleSecondary];
     
     [buttonDictionary setObject:specialButton forKey:@(MMNumberKeyboardButtonSpecial)];
     
@@ -169,7 +170,7 @@ static const CGFloat MMNumberKeyboardPadSpacing = 8.0f;
     
     [buttonDictionary setObject:doneButton forKey:@(MMNumberKeyboardButtonDone)];
     
-    UIButton *decimalPointButton = [MMKeyboardButton keyboardButtonWithStyle:MMNumberKeyboardButtonStyleWhite];
+    UIButton *decimalPointButton = [MMKeyboardButton keyboardButtonWithStyle:MMNumberKeyboardButtonStylePrimary];
     
     NSLocale *locale = self.locale ?: [NSLocale currentLocale];
     NSString *decimalSeparator = [locale objectForKey:NSLocaleDecimalSeparator];
@@ -687,10 +688,12 @@ NS_INLINE CGRect MMButtonRectMake(CGRect rect, CGRect contentRect, BOOL usesRoun
                 [[separatorViews objectsAtIndexes:indexes] makeObjectsPerformSelector:@selector(removeFromSuperview)];
                 [separatorViews removeObjectsAtIndexes:indexes];
             } else {
+                UIColor *separatorColor = [[UIColor colorWithWhite:0.0f alpha:0.1f] MM_colorWithDarkColor:[UIColor colorWithWhite:0.0f alpha:0.1f]];
+                
                 NSUInteger separatorsToInsert = delta;
                 while (separatorsToInsert--) {
                     UIView *separator = [[UIView alloc] initWithFrame:CGRectZero];
-                    separator.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.1f];
+                    separator.backgroundColor = separatorColor;
                     
                     [self addSubview:separator];
                     [separatorViews addObject:separator];

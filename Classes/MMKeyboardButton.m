@@ -7,19 +7,13 @@
 //
 
 #import "MMKeyboardButton.h"
+#import "MMKeyboardTheme.h"
 
 @interface MMKeyboardButton ()
 
 @property (strong, nonatomic) NSTimer *continuousPressTimer;
 @property (assign, nonatomic) NSTimeInterval continuousPressTimeInterval;
-
-@property (strong, nonatomic) UIColor *fillColor;
-@property (strong, nonatomic) UIColor *highlightedFillColor;
-@property (strong, nonatomic) UIColor *disabledFillColor;
-
-@property (strong, nonatomic) UIColor *controlColor;
-@property (strong, nonatomic) UIColor *highlightedControlColor;
-@property (strong, nonatomic) UIColor *disabledControlColor;
+@property (strong, nonatomic) MMKeyboardTheme *theme;
 
 @end
 
@@ -53,50 +47,7 @@
 
 - (void)_buttonStyleDidChange
 {
-    const UIUserInterfaceIdiom interfaceIdiom = UI_USER_INTERFACE_IDIOM();
-    const MMNumberKeyboardButtonStyle style = self.style;
-    
-    UIColor *fillColor = nil;
-    UIColor *highlightedFillColor = nil;
-    if (style == MMNumberKeyboardButtonStyleWhite) {
-        fillColor = [UIColor whiteColor];
-        highlightedFillColor = [UIColor colorWithRed:0.82f green:0.837f blue:0.863f alpha:1];
-    } else if (style == MMNumberKeyboardButtonStyleGray) {
-        if (interfaceIdiom == UIUserInterfaceIdiomPad) {
-            fillColor =  [UIColor colorWithRed:0.674f green:0.7f blue:0.744f alpha:1];
-        } else {
-            fillColor = [UIColor colorWithRed:0.81f green:0.837f blue:0.86f alpha:1];
-        }
-        highlightedFillColor = [UIColor whiteColor];
-    } else if (style == MMNumberKeyboardButtonStyleDone) {
-        fillColor = [UIColor colorWithRed:0 green:0.479f blue:1 alpha:1];
-        highlightedFillColor = [UIColor whiteColor];
-    }
-    
-    UIColor *controlColor = nil;
-    UIColor *highlightedControlColor = nil;
-    if (style == MMNumberKeyboardButtonStyleDone) {
-        controlColor = [UIColor whiteColor];
-        highlightedControlColor = [UIColor blackColor];
-    } else {
-        controlColor = [UIColor blackColor];
-        highlightedControlColor = [UIColor blackColor];
-    }
-    
-    UIColor *disabledFillColor = [UIColor colorWithRed:0.678f green:0.701f blue:0.735f alpha:1];
-    UIColor *disabledControlColor = [UIColor colorWithRed:0.458f green:0.478f blue:0.499f alpha:1];
-    
-    [self setTitleColor:controlColor forState:UIControlStateNormal];
-    [self setTitleColor:highlightedControlColor forState:UIControlStateSelected];
-    [self setTitleColor:highlightedControlColor forState:UIControlStateHighlighted];
-    [self setTitleColor:disabledControlColor forState:UIControlStateDisabled];
-    
-    self.fillColor = fillColor;
-    self.highlightedFillColor = highlightedFillColor;
-    self.controlColor = controlColor;
-    self.highlightedControlColor = highlightedControlColor;
-    self.disabledFillColor = disabledFillColor;
-    
+    [self setTheme:[MMKeyboardTheme themeForStyle:self.style]];
     [self _updateButtonAppearance];
 }
 
@@ -111,18 +62,39 @@
 
 - (void)_updateButtonAppearance
 {
+    const auto MMKeyboardTheme *theme = self.theme;
+    const BOOL isRounded = (self.usesRoundedCorners);
+    
     if (!self.isEnabled) {
-        self.backgroundColor = self.disabledFillColor;
-        self.imageView.tintColor = self.disabledControlColor;
+        self.backgroundColor = theme.disabledFillColor;
+        self.imageView.tintColor = theme.disabledControlColor;
     } else {
         if (self.isHighlighted || self.isSelected) {
-            self.backgroundColor = self.highlightedFillColor;
-            self.imageView.tintColor = self.controlColor;
+            self.backgroundColor = theme.highlightedFillColor;
+            self.imageView.tintColor = theme.controlColor;
         } else {
-            self.backgroundColor = self.fillColor;
-            self.imageView.tintColor = self.highlightedControlColor;
+            self.backgroundColor = theme.fillColor;
+            self.imageView.tintColor = theme.controlColor;
         }
     }
+    
+    static const CGFloat radius = 4.0f;
+    
+    CALayer *buttonLayer = [self layer];
+    buttonLayer.cornerRadius = (isRounded) ? radius : 0.0f;
+    buttonLayer.shadowOpacity = (isRounded) ? 1.0f : 0.0f;
+    buttonLayer.shadowColor = theme.shadowColor.CGColor;
+    buttonLayer.shadowOffset = CGSizeMake(0, 1.0f);
+    buttonLayer.shadowRadius = 0.0f;
+    
+    UIColor *controlColor = theme.controlColor;
+    UIColor *highlightedControlColor = theme.highlightedControlColor;
+    UIColor *disabledControlColor = theme.disabledControlColor;
+    
+    [self setTitleColor:controlColor forState:UIControlStateNormal];
+    [self setTitleColor:highlightedControlColor forState:UIControlStateSelected];
+    [self setTitleColor:highlightedControlColor forState:UIControlStateHighlighted];
+    [self setTitleColor:disabledControlColor forState:UIControlStateDisabled];
 }
 
 - (void)setEnabled:(BOOL)enabled
@@ -144,14 +116,7 @@
     if (usesRoundedCorners != _usesRoundedCorners) {
         _usesRoundedCorners = usesRoundedCorners;
         
-        static const CGFloat radius = 4.0f;
-        
-        CALayer *buttonLayer = [self layer];
-        buttonLayer.cornerRadius = (usesRoundedCorners) ? radius : 0.0f;
-        buttonLayer.shadowOpacity = (usesRoundedCorners) ? 1.0f : 0.0f;
-        buttonLayer.shadowColor = [UIColor colorWithRed:0.533f green:0.541f blue:0.556f alpha:1].CGColor;
-        buttonLayer.shadowOffset = CGSizeMake(0, 1.0f);
-        buttonLayer.shadowRadius = 0.0f;
+        [self _updateButtonAppearance];
     }
 }
 

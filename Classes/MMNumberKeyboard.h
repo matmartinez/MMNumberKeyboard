@@ -79,19 +79,29 @@ typedef NS_ENUM(NSUInteger, MMNumberKeyboardStyle) {
  */
 typedef NS_ENUM(NSUInteger, MMNumberKeyboardButtonStyle) {
     /**
-     *  A white style button, such as those for the number keys.
-     */
-    MMNumberKeyboardButtonStyleWhite,
+    *  A primary style button, such as those for the number keys.
+    */
+    MMNumberKeyboardButtonStylePrimary,
     
     /**
-     *  A gray style button, such as the backspace key.
-     */
-    MMNumberKeyboardButtonStyleGray,
+    *  A secondary style button, such as the backspace key.
+    */
+    MMNumberKeyboardButtonStyleSecondary,
     
     /**
      *  A done style button, for example, a button that completes some task and returns to the previous view.
      */
-    MMNumberKeyboardButtonStyleDone
+    MMNumberKeyboardButtonStyleDone,
+    
+    /**
+     *  A white style button, such as those for the number keys.
+     */
+    MMNumberKeyboardButtonStyleWhite __attribute__((deprecated)) = MMNumberKeyboardButtonStylePrimary,
+    
+    /**
+     *  A gray style button, such as the backspace key.
+     */
+    MMNumberKeyboardButtonStyleGray __attribute__((deprecated)) = MMNumberKeyboardButtonStyleSecondary,
 };
 
 /**

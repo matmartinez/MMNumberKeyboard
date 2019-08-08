@@ -19,6 +19,8 @@
 		09019CCC1C1A2831004D0A5D /* MMNumberKeyboardDismissKey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09019CC61C1A2831004D0A5D /* MMNumberKeyboardDismissKey@2x.png */; };
 		09019CCD1C1A2831004D0A5D /* MMNumberKeyboardDismissKey@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09019CC71C1A2831004D0A5D /* MMNumberKeyboardDismissKey@3x.png */; };
 		09752ECD2031EDA5008E3D92 /* MMKeyboardButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 09752ECC2031EDA5008E3D92 /* MMKeyboardButton.m */; };
+		09CA264122FB6DDE001F5217 /* MMKeyboardTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CA264022FB6DDE001F5217 /* MMKeyboardTheme.m */; };
+		09CA264422FB82C2001F5217 /* UIColor+MMNumberKeyboardAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CA264322FB82C2001F5217 /* UIColor+MMNumberKeyboardAdditions.m */; };
 		09E19C8C20332AC800091E14 /* MMTextInputDelegateProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E19C8B20332AC800091E14 /* MMTextInputDelegateProxy.m */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +43,10 @@
 		09019CC71C1A2831004D0A5D /* MMNumberKeyboardDismissKey@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MMNumberKeyboardDismissKey@3x.png"; sourceTree = "<group>"; };
 		09752ECB2031EDA5008E3D92 /* MMKeyboardButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMKeyboardButton.h; sourceTree = "<group>"; };
 		09752ECC2031EDA5008E3D92 /* MMKeyboardButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMKeyboardButton.m; sourceTree = "<group>"; };
+		09CA263F22FB6DDE001F5217 /* MMKeyboardTheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMKeyboardTheme.h; sourceTree = "<group>"; };
+		09CA264022FB6DDE001F5217 /* MMKeyboardTheme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMKeyboardTheme.m; sourceTree = "<group>"; };
+		09CA264222FB82C2001F5217 /* UIColor+MMNumberKeyboardAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+MMNumberKeyboardAdditions.h"; sourceTree = "<group>"; };
+		09CA264322FB82C2001F5217 /* UIColor+MMNumberKeyboardAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MMNumberKeyboardAdditions.m"; sourceTree = "<group>"; };
 		09E19C8A20332AC800091E14 /* MMTextInputDelegateProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMTextInputDelegateProxy.h; sourceTree = "<group>"; };
 		09E19C8B20332AC800091E14 /* MMTextInputDelegateProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMTextInputDelegateProxy.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,6 +111,10 @@
 				09752ECC2031EDA5008E3D92 /* MMKeyboardButton.m */,
 				09E19C8A20332AC800091E14 /* MMTextInputDelegateProxy.h */,
 				09E19C8B20332AC800091E14 /* MMTextInputDelegateProxy.m */,
+				09CA263F22FB6DDE001F5217 /* MMKeyboardTheme.h */,
+				09CA264022FB6DDE001F5217 /* MMKeyboardTheme.m */,
+				09CA264222FB82C2001F5217 /* UIColor+MMNumberKeyboardAdditions.h */,
+				09CA264322FB82C2001F5217 /* UIColor+MMNumberKeyboardAdditions.m */,
 			);
 			path = Classes;
 			sourceTree = SOURCE_ROOT;
@@ -161,6 +171,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -197,6 +208,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				09019C961C1A1C33004D0A5D /* ViewController.m in Sources */,
+				09CA264422FB82C2001F5217 /* UIColor+MMNumberKeyboardAdditions.m in Sources */,
+				09CA264122FB6DDE001F5217 /* MMKeyboardTheme.m in Sources */,
 				09019CC01C1A281D004D0A5D /* MMNumberKeyboard.m in Sources */,
 				09019C931C1A1C33004D0A5D /* AppDelegate.m in Sources */,
 				09E19C8C20332AC800091E14 /* MMTextInputDelegateProxy.m in Sources */,
