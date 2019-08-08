@@ -21,8 +21,6 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor whiteColor];
-    
     // Create and configure the keyboard.
     MMNumberKeyboard *keyboard = [[MMNumberKeyboard alloc] initWithFrame:CGRectZero];
     keyboard.allowsDecimalPoint = YES;
@@ -39,6 +37,17 @@
     self.textField = textField;
     
     [self.view addSubview:textField];
+    
+    // Setup view.
+    UIColor *backgroundColor = [UIColor whiteColor];
+    
+#if defined(__has_attribute) && __has_attribute(availability)
+    if (@available(iOS 13.0, *)) {
+        backgroundColor = [UIColor systemBackgroundColor];
+    }
+#endif
+    
+    self.view.backgroundColor = backgroundColor;
 }
 
 #pragma mark - MMNumberKeyboardDelegate.
