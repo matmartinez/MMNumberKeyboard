@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  A proxy object used internanlly by @c MMNumberKeyboard that conveys notifications of pending or transpired changes in text and selection.
+ *  A proxy object used internally by @c MMNumberKeyboard that conveys notifications of pending or transpired changes in text and selection.
  */
 @interface MMTextInputDelegateProxy : NSObject
 
