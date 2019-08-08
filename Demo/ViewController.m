@@ -41,7 +41,7 @@
     // Setup view.
     UIColor *backgroundColor = [UIColor whiteColor];
     
-#if defined(__has_attribute) && __has_attribute(availability)
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
     if (@available(iOS 13.0, *)) {
         backgroundColor = [UIColor systemBackgroundColor];
     }

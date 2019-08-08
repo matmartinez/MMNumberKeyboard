@@ -14,7 +14,7 @@
 {
     NSParameterAssert(darkColor);
     
-#if defined(__has_attribute) && __has_attribute(availability)
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
     if (@available(iOS 13.0, *)) {
         darkColor = [darkColor copy];
         UIColor *lightColor = [self copy];
