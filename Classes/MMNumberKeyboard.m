@@ -620,6 +620,8 @@ NS_INLINE CGRect MMButtonRectMake(CGRect rect, CGRect contentRect, BOOL usesRoun
             if (!allowsDecimalPoint) {
                 rect.size.width = numberSize.width * 2.0f;
                 [button setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 0, numberSize.width)];
+            } else {
+                [button setContentEdgeInsets:UIEdgeInsetsZero];
             }
             
         } else {
