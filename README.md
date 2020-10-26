@@ -1,7 +1,7 @@
 # MMNumberKeyboard
 A simple keyboard to use with numbers and, optionally, a decimal point.
 
-![And it works great on the iPad too](https://github.com/matmartinez/MMNumberKeyboard/blob/master/UniversalScreenshot.png)
+![And it works great on the iPad too](UniversalScreenshot.png)
 
 ## Installation
 
