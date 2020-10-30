@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "MMNumberKeyboard"
-  s.version      = "0.3.2"
+  s.version      = "0.3.3"
   s.summary      = "A simple keyboard to use with numbers and, optionally, a decimal point."
   s.homepage     = "https://matias.ma/"
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
