@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.4
 import PackageDescription
 
 let package = Package(
@@ -16,8 +16,8 @@ let package = Package(
         .target(
             name: "MMNumberKeyboard",
             path: "Classes",
-            publicHeadersPath: ".",
-            resources: [.process("Images")]
+            resources: [.process("Images")],
+            publicHeadersPath: "."
             ),
     ]
 )
